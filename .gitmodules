@@ -1,0 +1,3 @@
+[submodule "online/extern/limbo"]
+	path = online/extern/limbo
+	url = https://github.com/resibots/limbo.git
