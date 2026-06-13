@@ -93,4 +93,5 @@ Third-party requirements are listed below:
 ## References
 
 [1] J. Golowasch, M. Casey, L. F. Abbott, and E. Marder, “Network stability from activity-dependent regulation of neuronal conductances,” Neural Computation, vol. 11, pp. 1079–1096, 07 1999.
+
 [2] J. L. Hindmarsh and R. M. Rose, “A model of neuronal bursting using three coupled first order differential equations,” Proceedings of the Royal Society of London. B. Biological Sciences, vol. 221, pp. 87–102, 03 1984.
