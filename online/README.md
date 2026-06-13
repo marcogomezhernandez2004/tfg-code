@@ -1,12 +1,70 @@
 ### Bidirectional Chemical Synapse BO
 
-**Requirements:** libraries KFR DSP (compiled with -DCMAKE_POSITION_INDEPENDENT_CODE=ON), Limbo (included as a git submodule, run `git submodule update --init --recursive` from the root of the repository), nlohmann/json (placed in the `include/nlohmann/` directory, no need to do anything else), Eigen3, NLopt, and Boost (the last three are assumed to be installed in the system).
-**Limitations:** The user should change the -lkfr_dsp_... flag from avx2 to the appropriate one for their system in the Makefile; and KFR DSP must be compiled with -DCMAKE_POSITION_INDEPENDENT_CODE=ON.
+**Requirements:**
+
+Third-party requirements are listed below:
+
+| Requirement | Description | Version | Installation |
+|---|---|---|---|
+| [Limbo](https://github.com/resibots/limbo/releases/tag/v2.1.0) | Bayesian Optimization and Gaussian Processes library | v2.1.0 | **Git submodule**. In the `extern/limbo/` directory, run `git submodule update --init --recursive` from the root of the repository. |
+| [KFR](https://github.com/kfrlib/kfr/releases/tag/7.0.1) | Digital signal processing library (low-pass filters like Butterworth, vectorized operations). Change the `-lkfr_dsp_...` flag from `avx2` to the appropriate one for your system in the Makefile. | 7.0.1 | **Manual pre-installation required** (must be compiled with `-DCMAKE_POSITION_INDEPENDENT_CODE=ON`) |
+| [nlohmann/json](https://github.com/nlohmann/json/releases/tag/v3.11.3) | JSON serialization library (for the BO history) | v3.11.3 | **Vendored** (in the `include/nlohmann/` directory) |
+| [NLopt](https://github.com/stevengj/nlopt/releases/tag/v2.7.1) | Optimization library (Subplex) | v2.7.1 | **Manual pre-installation required** |
+| [Eigen3](https://eigen.tuxfamily.org) | C++ template library for linear algebra (required by Limbo) | | **Manual pre-installation required** |
+| [Boost](https://www.boost.org) | C++ libraries (components: system, filesystem, thread) | | **Manual pre-installation required** |
+
+**Limitations:** The user should change the `-lkfr_dsp_...` flag from `avx2` to the appropriate one for their system in the Makefile; and KFR DSP must be compiled with `-DCMAKE_POSITION_INDEPENDENT_CODE=ON`.
 
 ![Bidirectional Chemical Synapse BO GUI](bidirectional_chemical_synapse_BO.png)
 
 <!--start-->
-<p><b>Bidirectional Chemical Synapse BO</b><br>module for RTXI that implements a bidirectional chemical synapse model and runs Bayesian Optimization (BO) online to fit synaptic parameters based on captured voltage/current signals.</p>
+The goal of this module is to automate the online parameterization of the **graded chemical synapse model by Golowasch et al.** [1] for biohybrid circuits, where biological neurons and computational models interact in real time. This model exhibits ***parameter sloppiness*** (multiple parameter combinations can yield similar outputs), making manual tuning difficult. It separates the synaptic current to enable modular and frequency-selective coupling:
+- **Fast component**: presynaptic spikes (fast wave/high frequency).
+- **Slow component**: presynaptic slow wave (low frequency).
+
+## Key Features
+
+- **Bayesian Optimization (BO)**: models the objective function using a **Gaussian Process (GP)**, configured with:
+  - **Kernel**: **Squared Exponential Automatic Relevance Determination (SE-ARD)**; its hyperparameters are reoptimized using the **Resilient Backpropagation (Rprop)** algorithm.
+  - **Initialization**: **Latin Hypercube Sampling (LHS)**.
+  - **Acquisition function**: **Expected Improvement (EI)**; maximized via the **Subplex** algorithm.
+- **Evaluation function** based on frequency decomposition of the presynaptic potential using a **low-pass filter (Butterworth)** to separate fast and slow components to use them as references. It independently assesses the **shape** (**Pearson correlation**) and **range** of each current component.
+- **Parameter space handling**:
+  - **Parameter sloppiness mitigation**:
+    - **Reparameterizations**: `R = k2/k1`.
+    - **Logarithmic scales**: conductances, `k1` and `R`.
+    - **SE-ARD kernel**.
+  - **Dynamic search bounds** adapted to each experiment's signal characteristics.
+
+## Implementation Details
+
+The codebase is written in **C++20**.
+
+This implementation uses a **Runge-Kutta integrator** for solving the differential equations of the computational synaptic models. The integrator and the **models are self-implemented** to maximize efficiency, which is very important in hard real-time (e.g. calculating only the needed components of the equations).
+
+It is a**RTXI 2.3** module that functions as a complete **synaptic module** for real-time interaction, not just a parameterization tool.
+
+The module is designed to be used alongside the **RTHybrid for RTXI** modules to build the complete biohybrid setup.
+
+It can operate in a **bidirectional** setup, **grouping the synapses in both directions** in the module to capture the whole dynamic in a evaluation. However, the user can **choose which current components** are used (calculated) and optimized in each direction, also to maximize efficiency. 
+
+The optimization process typically requires **400 evaluations** (**50 initial samples** and **350 BO iterations**) to reach a good set of parameters, completing in under **16 minutes**.
+
+## Related Repositories
+
+- **Project data**: [tfg-data](https://github.com/marcogomezhernandez2004/tfg-data) — Data, plots, and scripts related to them.
+- **RTHybrid**: [RTHybrid](https://github.com/GNB-UAM/RTHybrid/tree/a83071dcb4ac85f85b7beb2f7b7b5f68e785db22) (commit `a83071d`) — Standalone real-time neuronal model program by GNB. The presynaptic signal scaling algorithm is based on its implementation.
+- **RTHybrid for RTXI**: [rthybrid-for-rtxi](https://github.com/GNB-UAM/rthybrid-for-rtxi/tree/f13a015084b9819a02663833aaccbc8e86d36161) (commit `f13a015`) — RTXI modules that replicate RTHybrid functionality (neuronal models, burst analysis, amplitude scaling...), useful with the online synapse module.
+- **mimic-signal**: [mimic-signal](https://github.com/RTXI/mimic-signal/tree/e15e26cef364575de9a0629591ac9e2218637226) (commit `e15e26c`) — RTXI module for applying gain and offset to a signal (for amplitude scaling), useful with the online synapse module.
+- **plugin-template**: [plugin-template](https://github.com/RTXI/plugin-template/tree/b7b3a3b606cca17778cac8c5a4846d6df8a0733a) (commit `b7b3a3b`) — Official RTXI module template. The legacy version of this template is used for compatibility with RTXI 2.3.
+
+## License
+
+Refer to the `LICENSE` files in each subdirectory.
+
+## References
+
+[1] J. Golowasch, M. Casey, L. F. Abbott, and E. Marder, “Network stability from activity-dependent regulation of neuronal conductances,” Neural Computation, vol. 11, pp. 1079–1096, 07 1999.
 <!--end-->
 
 #### Input
