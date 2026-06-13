@@ -26,6 +26,8 @@ The codebase is written in **C++20**.
 
 Both implementations use a **Runge-Kutta integrator** for solving the differential equations of the computational neuronal and synaptic models.
 
+The user can **choose which current components** are used (calculated) and optimized to maximize efficiency.
+
 ## Repository Structure
 
 The repository is organized into the following main directories, each targeting a specific execution environment. The optimization process typically requires **400 evaluations** (**50 initial samples** and **350 BO iterations**) to reach a good set of parameters.
