@@ -4,7 +4,7 @@ The goal of this program is to automate the offline parameterization of the **gr
 - **Fast component**: presynaptic spikes (fast wave/high frequency).
 - **Slow component**: presynaptic slow wave (low frequency).
 
-## Key Features
+## Key features
 
 - **Bayesian Optimization (BO)**: models the objective function using a **Gaussian Process (GP)**, configured with:
   - **Kernel**: **Squared Exponential Automatic Relevance Determination (SE-ARD)**; its hyperparameters are reoptimized using the **Resilient Backpropagation (Rprop)** algorithm.
@@ -18,7 +18,7 @@ The goal of this program is to automate the offline parameterization of the **gr
     - **SE-ARD kernel**.
   - **Dynamic search bounds** adapted to each experiment's signal characteristics.
 
-## Implementation Details
+## Implementation details
 
 The codebase is written in **C++20**.
 
@@ -72,7 +72,7 @@ make
 | `[jsonl_history_file_path]` | (Optional) Path to export the optimization history in JSONL format. |
 - `consts_calculator`: Auxiliary executable that precalculates the dynamical constants of the neuronal model (minimum, maximum, and average points per burst for each integration step size). It prints to standard output in C++ format to be directly copied into the `utils.hpp` file. Executed only once during development or when neuronal parameters change.
 
-## Main Requirements
+## Main requirements
 
 Third-party requirements are listed below:
 
@@ -88,7 +88,7 @@ Third-party requirements are listed below:
 | [Boost](https://www.boost.org) | C++ libraries (components: system, filesystem, thread) | | **Pre-installation required** |
 | [TBB](https://github.com/oneapi-src/oneTBB) | Intel Threading Building Blocks for parallel execution | | **Pre-installation required** |
 
-## Related Repositories
+## Related repositories
 
 | Repository | Description |
 |---|---|

@@ -6,7 +6,7 @@ The goal is to automate the parameterization of the **graded chemical synapse mo
 - **Fast component**: presynaptic spikes (fast wave/high frequency).
 - **Slow component**: presynaptic slow wave (low frequency).
 
-## Key Features
+## Key features
 
 - **Bayesian Optimization (BO)**: models the objective function using a **Gaussian Process (GP)**, configured with:
   - **Kernel**: **Squared Exponential Automatic Relevance Determination (SE-ARD)**; its hyperparameters are reoptimized using the **Resilient Backpropagation (Rprop)** algorithm.
@@ -20,7 +20,7 @@ The goal is to automate the parameterization of the **graded chemical synapse mo
     - **SE-ARD kernel**.
   - **Dynamic search bounds** adapted to each experiment's signal characteristics.
 
-## Implementation Details
+## Implementation details
 
 The codebase is written in **C++20**.
 
@@ -28,7 +28,7 @@ Both implementations use a **Runge-Kutta integrator** for solving the differenti
 
 The user can **choose which current components** are used (calculated) and optimized to maximize efficiency.
 
-## Repository Structure
+## Repository structure
 
 The repository is organized into the following main directories, each targeting a specific execution environment. The optimization process typically requires **400 evaluations** (**50 initial samples** and **350 BO iterations**) to reach a good set of parameters.
 
@@ -40,7 +40,7 @@ The repository is organized into the following main directories, each targeting 
 
 > Each subdirectory contains its own self-contained `README.md` with specific descriptions and instructions.
 
-## Main Requirements
+## Main requirements
 
 Third-party requirements vary by version. The main ones are listed below (refer to each subdirectory's README for details):
 
@@ -57,7 +57,7 @@ Third-party requirements vary by version. The main ones are listed below (refer 
 | [Boost](https://www.boost.org) | C++ libraries (components: system, filesystem, thread) | |
 | [TBB](https://github.com/oneapi-src/oneTBB) | Intel Threading Building Blocks for parallel execution | |
 
-## Related Repositories
+## Related repositories
 
 | Repository | Description |
 |---|---|
@@ -67,7 +67,7 @@ Third-party requirements vary by version. The main ones are listed below (refer 
 | [mimic-signal](https://github.com/RTXI/mimic-signal/tree/e15e26cef364575de9a0629591ac9e2218637226) (commit `e15e26c`) | RTXI module for applying gain and offset to a signal (for amplitude scaling), useful with the online synapse module. |
 | [plugin-template](https://github.com/RTXI/plugin-template/tree/b7b3a3b606cca17778cac8c5a4846d6df8a0733a) (commit `b7b3a3b`) | Official RTXI module template (online version). The legacy version of this template is used for compatibility with RTXI 2.3. |
 
-## Thesis Information
+## Thesis information
 
 | | |
 |---|---|
