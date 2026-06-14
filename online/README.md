@@ -50,13 +50,26 @@ It can operate in a **bidirectional** setup, **grouping the synapses in both dir
 
 The optimization process typically requires **400 evaluations** (**50 initial samples** and **350 BO iterations**) to reach a good set of parameters, completing in under **16 minutes**.
 
+To save the optimization history, you must set the `JSONL_HISTORY_FILE_PATH` environment variable when launching RTXI (e.g., `sudo JSONL_HISTORY_FILE_PATH="/path/to/history.jsonl" rtxi`).
+
+### Compilation
+
+To compile and install the module for RTXI, run:
+
+```bash
+make
+sudo make install
+```
+
 ## Related Repositories
 
-- **Project data**: [tfg-data](https://github.com/marcogomezhernandez2004/tfg-data) — Data, plots, and scripts related to them.
-- **RTHybrid**: [RTHybrid](https://github.com/GNB-UAM/RTHybrid/tree/a83071dcb4ac85f85b7beb2f7b7b5f68e785db22) (commit `a83071d`) — Standalone real-time neuronal model program by GNB. The presynaptic signal scaling algorithm is based on its implementation.
-- **RTHybrid for RTXI**: [rthybrid-for-rtxi](https://github.com/GNB-UAM/rthybrid-for-rtxi/tree/f13a015084b9819a02663833aaccbc8e86d36161) (commit `f13a015`) — RTXI modules that replicate RTHybrid functionality (neuronal models, burst analysis, amplitude scaling...), useful with the online synapse module.
-- **mimic-signal**: [mimic-signal](https://github.com/RTXI/mimic-signal/tree/e15e26cef364575de9a0629591ac9e2218637226) (commit `e15e26c`) — RTXI module for applying gain and offset to a signal (for amplitude scaling), useful with the online synapse module.
-- **plugin-template**: [plugin-template](https://github.com/RTXI/plugin-template/tree/b7b3a3b606cca17778cac8c5a4846d6df8a0733a) (commit `b7b3a3b`) — Official RTXI module template. The legacy version of this template is used for compatibility with RTXI 2.3.
+| Repository | Description |
+|---|---|
+| [tfg-data](https://github.com/marcogomezhernandez2004/tfg-data) | Data, plots, and scripts related to them. |
+| [RTHybrid](https://github.com/GNB-UAM/RTHybrid/tree/a83071dcb4ac85f85b7beb2f7b7b5f68e785db22) (commit `a83071d`) | Standalone real-time neuronal model program by GNB. The presynaptic signal scaling algorithm is based on its implementation. |
+| [rthybrid-for-rtxi](https://github.com/GNB-UAM/rthybrid-for-rtxi/tree/f13a015084b9819a02663833aaccbc8e86d36161) (commit `f13a015`) | RTXI modules that replicate RTHybrid functionality (neuronal models, burst analysis, amplitude scaling...), useful with the online synapse module. |
+| [mimic-signal](https://github.com/RTXI/mimic-signal/tree/e15e26cef364575de9a0629591ac9e2218637226) (commit `e15e26c`) | RTXI module for applying gain and offset to a signal (for amplitude scaling), useful with the online synapse module. |
+| [plugin-template](https://github.com/RTXI/plugin-template/tree/b7b3a3b606cca17778cac8c5a4846d6df8a0733a) (commit `b7b3a3b`) | Official RTXI module template. The legacy version of this template is used for compatibility with RTXI 2.3. |
 
 ## License
 

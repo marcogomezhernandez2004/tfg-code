@@ -48,25 +48,28 @@ make
 - `bo`: Main executable that runs the Bayesian Optimization process.
   - **Usage**: `./bo <arguments>`
   - **Arguments**:
-    - `<csv_path>`: Path to the CSV file containing the presynaptic voltage recording.
-    - `<column_idx>`: Column index of the voltage in the CSV (0-indexed).
-    - `<csv_step (ms)>`: Temporal step size between CSV samples in milliseconds.
-    - `<start_time (ms)>`: Time in milliseconds to start reading the recording from.
-    - `<stabilization_time (ms)>`: Initial time to let the model stabilize before evaluating.
-    - `<evaluation_time (ms)>`: Total duration in milliseconds for the synaptic evaluation.
-    - `<observation_time (ms)>`: Time used to compute the base statistics of the signal for the scaling.
-    - `<initial_samples>`: Number of initial Latin Hypercube Sampling (LHS) samples.
-    - `<iterations>`: Number of Bayesian Optimization iterations to run after the initial samples.
-    - `<search_phase>`: 1 to search for phase (excitatory) coupling, 0 for antiphase (inhibitory).
-    - `<check_drift>`: 1 to enable signal drift correction, 0 to disable.
-    - `<syn_model_step_factor>`: Sub-stepping factor for the synaptic model integration.
-    - `<syn_component>`: Synaptic component to optimize (0 = fast, 1 = slow, 2 = both).
-    - `<cutoff_frequency (kHz)>`: Cutoff frequency for the Butterworth low-pass filter in kHz to separate spikes from the slow wave in the presynaptic potential.
-    - `<expected_i_min>` / `<expected_i_max>`: Expected minimum and maximum current bounds in nA.
-    - `<i_min>` / `<i_max>`: Absolute clamping limits for the output current in nA.
-    - `<verbose>`: 1 to enable verbose console output, 0 otherwise.
-    - `<output_yaml>`: Path to save the best parameters found in YAML format.
-    - `[jsonl_history_file_path]`: (Optional) Path to export the optimization history in JSONL format.
+
+| Argument | Description |
+|---|---|
+| `<csv_path>` | Path to the CSV file containing the presynaptic voltage recording. |
+| `<column_idx>` | Column index of the voltage in the CSV (0-indexed). |
+| `<csv_step (ms)>` | Temporal step size between CSV samples in milliseconds. |
+| `<start_time (ms)>` | Time in milliseconds to start reading the recording from. |
+| `<stabilization_time (ms)>` | Initial time to let the model stabilize before evaluating. |
+| `<evaluation_time (ms)>` | Total duration in milliseconds for the synaptic evaluation. |
+| `<observation_time (ms)>` | Time used to compute the base statistics of the signal for the scaling. |
+| `<initial_samples>` | Number of initial Latin Hypercube Sampling (LHS) samples. |
+| `<iterations>` | Number of Bayesian Optimization iterations to run after the initial samples. |
+| `<search_phase>` | 1 to search for phase (excitatory) coupling, 0 for antiphase (inhibitory). |
+| `<check_drift>` | 1 to enable signal drift correction, 0 to disable. |
+| `<syn_model_step_factor>` | Sub-stepping factor for the synaptic model integration. |
+| `<syn_component>` | Synaptic component to optimize (0 = fast, 1 = slow, 2 = both). |
+| `<cutoff_frequency (kHz)>` | Cutoff frequency for the Butterworth low-pass filter in kHz to separate spikes from the slow wave in the presynaptic potential. |
+| `<expected_i_min>` / `<expected_i_max>` | Expected minimum and maximum current bounds in nA. |
+| `<i_min>` / `<i_max>` | Absolute clamping limits for the output current in nA. |
+| `<verbose>` | 1 to enable verbose console output, 0 otherwise. |
+| `<output_yaml>` | Path to save the best parameters found in YAML format. |
+| `[jsonl_history_file_path]` | (Optional) Path to export the optimization history in JSONL format. |
 - `consts_calculator`: Auxiliary executable that precalculates the dynamical constants of the neuronal model (minimum, maximum, and average points per burst for each integration step size). It prints to standard output in C++ format to be directly copied into the `utils.hpp` file. Executed only once during development or when neuronal parameters change.
 
 ## Main Requirements
@@ -87,8 +90,10 @@ Third-party requirements are listed below:
 
 ## Related Repositories
 
-- **Project data**: [tfg-data](https://github.com/marcogomezhernandez2004/tfg-data) — Data, plots, and scripts related to them.
-- **RTHybrid**: [RTHybrid](https://github.com/GNB-UAM/RTHybrid/tree/a83071dcb4ac85f85b7beb2f7b7b5f68e785db22) (commit `a83071d`) — Standalone real-time neuronal model program by GNB. The presynaptic signal scaling algorithm is based on its implementation.
+| Repository | Description |
+|---|---|
+| [tfg-data](https://github.com/marcogomezhernandez2004/tfg-data) | Data, plots, and scripts related to them. |
+| [RTHybrid](https://github.com/GNB-UAM/RTHybrid/tree/a83071dcb4ac85f85b7beb2f7b7b5f68e785db22) (commit `a83071d`) | Standalone real-time neuronal model program by GNB. The presynaptic signal scaling algorithm is based on its implementation. |
 
 ## References
 
