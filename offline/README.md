@@ -24,7 +24,7 @@ The codebase is written in **C++20**.
 
 This implementation uses a **Runge-Kutta integrator** for solving the differential equations of the computational neuronal and synaptic models.
 
-It operates on a presynaptic voltage recording (CSV) in a **unidirectional** setup (because the presynaptic register can not react dynamicly to currents) with a **Hindmarsh-Rose** [2] neuronal model as the postsynaptic neuron. The CSV can be changed for any other and the neuronal model can also be easily substituted by any other model of Neun (thanks to the use of templates). The provided CSV contains data from a Pyloric Dilator (PD) neuron of the stomatogastric ganglion of a crab, which exhibits the characteristic bursting behavior of Central Pattern Generator (CPG) neurons.
+It operates on a presynaptic voltage recording (CSV) in a **unidirectional** setup (because the presynaptic register can not react dynamicly to currents) with a **Hindmarsh-Rose** [2] neuronal model as the postsynaptic neuron. The CSV can be changed for any other and the neuronal model can also be easily substituted by any other model of Neun (thanks to the use of templates). The provided CSV contains data from two Pyloric Dilator (PD) neurons of the stomatogastric ganglion of a crab, which exhibit the characteristic bursting behavior of Central Pattern Generator (CPG) neurons.
 
 The user can **choose which current components** are used (calculated) and optimized to maximize efficiency.
 
