@@ -46,7 +46,7 @@ make
 ### Executables
 
 - `bo`: Main executable that runs the Bayesian Optimization process.
-  - **Usage**: `./bo <arguments>`
+  - **Usage**: `./bo <csv_path> <column_idx> <csv_step (ms)> <start_time (ms)> <stabilization_time (ms)> <evaluation_time (ms)> <observation_time (ms)> <initial_samples> <iterations> <search_phase> <check_drift> <syn_model_step_factor> <syn_component> <cutoff_frequency (kHz)> <expected_i_min> <expected_i_max> <i_min> <i_max> <verbose> <output_yaml> <jsonl_history_file_path>`
   - **Arguments**:
 
 | Argument | Description |
