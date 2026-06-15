@@ -36,7 +36,7 @@ The repository is organized into the following main directories, each targeting 
 |---|---|
 | [`offline/`](offline/) | **Offline Implementation**: Operates on a presynaptic voltage recording (CSV) in a **unidirectional** setup with a neuronal model as the postsynaptic neuron. Because it does not wait for real time, this implementation is extremely fast, completing 400 evaluations in around **30 seconds**. |
 | [`online/`](online/) | **Online Implementation**: An **RTXI** module (version 2.3) for real-time experimentation. Supports **bidirectional** interactions with two simultaneous synapses, compatible with live neurons and/or models. Since it runs in real time, it takes under **16 minutes** for the same number of evaluations. |
-| [`rthybrid_hindmarsh_rose_1984_neuron_v2/`](rthybrid_hindmarsh_rose_1984_neuron_v2/) | RTXI module for the modified **Hindmarsh-Rose** neuronal model (**with *v_h* parameter**), corrected from the RTHybrid for RTXI repository of the GNB at UAM. |
+| [`rthybrid_hindmarsh_rose_1984_neuron_v2/`](rthybrid_hindmarsh_rose_1984_neuron_v2/) | RTXI module for the modified **Hindmarsh-Rose** neuronal model (with the *v_h* parameter and specific parameter values), corrected from the RTHybrid for RTXI repository of the GNB at UAM. |
 
 > Each subdirectory contains its own self-contained `README.md` with specific descriptions and instructions.
 
