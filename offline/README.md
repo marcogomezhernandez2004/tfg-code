@@ -55,7 +55,7 @@ make
 | `<column_idx>` | Column index of the voltage in the CSV (0-indexed). |
 | `<csv_step (ms)>` | Temporal step size between CSV samples in milliseconds. |
 | `<start_time (ms)>` | Time in milliseconds to start reading the recording from. |
-| `<stabilization_time (ms)>` | Initial time to let the model stabilize before evaluating. |
+| `<stabilization_time (ms)>` | Initial time to let the models stabilize before evaluating. |
 | `<evaluation_time (ms)>` | Total duration in milliseconds for the synaptic evaluation. |
 | `<observation_time (ms)>` | Time used to compute the base statistics of the signal for the scaling. |
 | `<initial_samples>` | Number of initial Latin Hypercube Sampling (LHS) samples. |
